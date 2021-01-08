@@ -1,6 +1,6 @@
 ## Setup Account
 
-In order to use **Timestream Simple Visualizer** you're required to have an account with programmatic access which has the right permissions to read from Timestream. This short buide highlight the steps required for you to get the account details to be used in the application.
+In order to use **Timestream Simple Visualizer** you're required to have an account with programmatic access which has the right permissions to read from Timestream. This short guide highlight the steps required for you to get the account details to be used in the application.
 
 ## Setup
 
