@@ -22,13 +22,27 @@ import Heading from 'aws-northstar/components/Heading'
 import Alert from 'aws-northstar/components/Alert'
 import LoadingIndicator from 'aws-northstar/components/LoadingIndicator'
 import ReactEchartsCore from 'echarts-for-react/lib/core'
-import echarts from 'echarts/lib/echarts'
-import 'echarts/lib/chart/line'
-import 'echarts/lib/component/tooltip'
-import 'echarts/lib/component/title'
-import 'echarts/lib/component/legend'
+import * as echarts from 'echarts/core'
+import { LineChart } from 'echarts/charts'
+import {
+  LegendComponent,
+  TooltipComponent,
+  TitleComponent,
+  GridComponent,
+} from 'echarts/components'
+import { CanvasRenderer } from 'echarts/renderers'
+
 import Toolbar from './Toolbar'
 import api from '../../api/timestream'
+
+echarts.use([
+  LineChart,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent,
+  CanvasRenderer,
+])
 
 const VisualComponent = ({
   db,

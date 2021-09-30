@@ -19,7 +19,7 @@ import PropTypes from 'prop-types'
 import Box from 'aws-northstar/layouts/Box'
 import Modal from 'aws-northstar/components/Modal'
 import Button from 'aws-northstar/components/Button'
-import { ControlledEditor } from '@monaco-editor/react'
+import Editor from '@monaco-editor/react'
 
 const QueryModal = ({ query, visible, onClose, onChange }) => {
   const [value, setValue] = useState(query)
@@ -31,11 +31,11 @@ const QueryModal = ({ query, visible, onClose, onChange }) => {
   return (
     <>
       <Modal title='Query editor' visible={visible} onClose={onClose}>
-        <ControlledEditor
+        <Editor
           height='50vh'
           language='sql'
           value={value}
-          onChange={(_, v) => setValue(v)}
+          onChange={(v) => setValue(v)}
           options={{
             autoIndent: 'full',
             codeLens: false,
