@@ -26,11 +26,19 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
     "is-svg": "^4.3.1",
+    "npm-force-resolutions": "0.0.10",
     "prettier": "^2.4.1",
     "prop-types": "^15.7.2",
     "react-scripts": "^4.0.3"
   },
+  "resolutions": {
+    "nth-check": ">=2.0.1",
+    "set-value": ">=4.0.1",
+    "immer": ">=9.0.6",
+    "glob-parent": ">=5.1.2"
+  },
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
