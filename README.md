@@ -13,7 +13,7 @@ This small application allows you to connect to **Amazon Timestream** and visual
 You're required to have the following installed in your machine to be able to run the application:
 
 - git
-- Nodejs (tested with 12)
+- Nodejs (v14.19.0 and above)
 - AWS Account with Timestream readonly access and programmatic access (here a guide on [how to setup the account](docs/account-setup.md))
 
 ## Installation
