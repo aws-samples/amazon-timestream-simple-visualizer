@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "dependencies": {
+    "@aws-sdk/client-timestream-query": "^3.204.0",
+    "@aws-sdk/client-timestream-write": "^3.204.0",
     "@monaco-editor/react": "^4.2.2",
     "aws-northstar": "^1.0.21",
-    "aws-sdk": "^2.997.0",
     "echarts": "^5.2.1",
     "echarts-for-react": "^3.0.1",
     "react": "^17.0.2",
@@ -30,7 +31,7 @@
     "prettier": "^2.4.1",
     "prop-types": "^15.7.2",
     "react-app-rewired": "^2.1.11",
-    "react-scripts": "5.0.0"
+    "react-scripts": "^5.0.1"
   },
   "resolutions": {
     "nth-check": ">=2.0.1",

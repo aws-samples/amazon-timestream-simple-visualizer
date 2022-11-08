@@ -14,8 +14,8 @@
   limitations under the License.                                                                              
  ******************************************************************************************************************** */
 
-import Tswrite from 'aws-sdk/clients/timestreamwrite'
-import Tsquery from 'aws-sdk/clients/timestreamquery'
+import { TimestreamQueryClient as Tsquery } from '@aws-sdk/client-timestream-query'
+import { TimestreamWriteClient as Tswrite } from '@aws-sdk/client-timestream-write'
 import * as h from '../helpers/index'
 
 let tsw = null
