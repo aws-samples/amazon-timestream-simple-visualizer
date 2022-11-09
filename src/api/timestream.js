@@ -1,94 +1,96 @@
 /** *******************************************************************************************************************
   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  
+
   Licensed under the Apache License, Version 2.0 (the "License").
   You may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-  
+
       http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
-  limitations under the License.                                                                              
+  limitations under the License.
  ******************************************************************************************************************** */
 
-import { TimestreamQueryClient as Tsquery } from '@aws-sdk/client-timestream-query'
-import { TimestreamWriteClient as Tswrite } from '@aws-sdk/client-timestream-write'
+import * as qc from '@aws-sdk/client-timestream-query'
+import * as wc from '@aws-sdk/client-timestream-write'
 import * as h from '../helpers/index'
 
 let tsw = null
 let tsq = null
 
-const getConfiguration = () => {
+const getConfiguration = async () => {
   if (!tsw) return {}
 
-  const { region } = tsw.config
+  const { region, credentials } = await tsw.config
 
-  return new Promise((resolve) => {
-    tsw.config.getCredentials((err, res) => {
-      if (err || !res) {
-        resolve({
-          region,
-          accessKeyId: null,
-          secretAccessKey: null,
-        })
-        return
-      }
+  try {
+    return {
+      ...(await region()),
+      ...(await credentials()),
+    }
+  } catch (e) {
+    return {
+      region,
+      accessKeyId: null,
+      secretAccessKey: null,
+      sessionToken: null,
+    }
+  }
+}
 
-      const { accessKeyId, secretAccessKey } = res
+const setConfiguration = (
+  region,
+  accessKeyId,
+  secretAccessKey,
+  sessionToken
+) => {
+  tsw = new wc.TimestreamWriteClient({
+    region,
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+      sessionToken,
+    },
+  })
 
-      resolve({
-        region,
-        accessKeyId,
-        secretAccessKey,
-      })
-    })
+  tsq = new qc.TimestreamQueryClient({
+    region,
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+      sessionToken,
+    },
   })
 }
 
-const setConfiguration = (region, accessKeyId, secretAccessKey) => {
-  tsw = new Tswrite({
-    region,
-    accessKeyId,
-    secretAccessKey,
-  })
-
-  tsq = new Tsquery({
-    region,
-    accessKeyId,
-    secretAccessKey,
-  })
-}
-
-const listDatabases = () => tsw.listDatabases().promise()
-const listTables = (db) =>
-  tsw
-    .listTables({
+const listDatabases = async () => tsw.send(new wc.ListDatabasesCommand({}))
+const listTables = async (db) =>
+  tsw.send(
+    new wc.ListTablesCommand({
       DatabaseName: db,
       // todo: does not support pagination
       MaxResults: 20,
     })
-    .promise()
+  )
 
 const isInitialised = () => tsw !== null
 
-const getMeasures = (db, table) => {
-  return tsq
-    .query({
+const getMeasures = (db, table) =>
+  tsq.send(
+    new qc.QueryCommand({
       QueryString: `SHOW MEASURES IN "${db}"."${table}"`,
     })
-    .promise()
-}
+  )
 
-const describeTable = (db, table) => {
-  return tsq
-    .query({
+const describeTable = (db, table) =>
+  tsq.send(
+    new qc.QueryCommand({
       QueryString: `DESCRIBE "${db}"."${table}"`,
     })
-    .promise()
-}
+  )
 
 const query = async (
   db,
@@ -131,11 +133,11 @@ ORDER BY time DESC
 
   return {
     query: q,
-    result: await tsq.query({ QueryString: q }).promise(),
+    result: await tsq.send(new qc.QueryCommand({ QueryString: q })),
   }
 }
 
-const rawQuery = (q) => tsq.query({ QueryString: q }).promise()
+const rawQuery = (q) => tsq.send(new qc.QueryCommand({ QueryString: q }))
 
 // eslint-disable-next-line
 export default {

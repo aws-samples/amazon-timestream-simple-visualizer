@@ -14,13 +14,13 @@
   limitations under the License.                                                                              
  ******************************************************************************************************************** */
 
-import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import Box from 'aws-northstar/layouts/Box'
 import Button from 'aws-northstar/components/Button'
 import Flashbar from 'aws-northstar/components/Flashbar'
-import DatabaseConnectionComponent from '../../components/DatabaseConnectionComponent'
+import Box from 'aws-northstar/layouts/Box'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import api from '../../api/timestream'
+import DatabaseConnectionComponent from '../../components/DatabaseConnectionComponent'
 
 const Main = () => {
   const isInitailised = api.isInitialised()
