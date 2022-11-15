@@ -14,19 +14,20 @@
   limitations under the License.                                                                              
  ******************************************************************************************************************** */
 
-import React, { useEffect, useState } from 'react'
-import Container from 'aws-northstar/layouts/Container'
+import Button from 'aws-northstar/components/Button'
 import Flashbar from 'aws-northstar/components/Flashbar'
-import Text from 'aws-northstar/components/Text'
 import FormField from 'aws-northstar/components/FormField'
 import Input from 'aws-northstar/components/Input'
-import Button from 'aws-northstar/components/Button'
+import Text from 'aws-northstar/components/Text'
+import Container from 'aws-northstar/layouts/Container'
+import React, { useEffect, useState } from 'react'
 import api from '../../api/timestream'
 
 const Settings = () => {
   const [region, setRegion] = useState('')
   const [key, setKey] = useState('')
   const [secret, setSecret] = useState('')
+  const [session, setSessionToken] = useState('')
   const [notifications, setNotifications] = useState([])
 
   useEffect(() => {
@@ -35,18 +36,20 @@ const Settings = () => {
         region: configRegion,
         secretAccessKey,
         accessKeyId,
+        sessionToken,
       } = await api.getConfiguration()
 
       setRegion(configRegion || 'us-east-1')
       setKey(accessKeyId)
       setSecret(secretAccessKey)
+      setSessionToken(sessionToken)
     }
 
     fetchConfig()
   }, [])
 
   const saveSettings = () => {
-    api.setConfiguration(region, key, secret)
+    api.setConfiguration(region, key, secret, session)
     setNotifications((old) => [
       ...old,
       {
@@ -114,6 +117,20 @@ const Settings = () => {
             value={secret}
             autocomplete={false}
             onChange={(v) => setSecret(v)}
+          />
+        </FormField>
+
+        <FormField
+          label='Session Token'
+          hintText='Input the session token of a IAM programmatic user that has access to Timestream query'
+          controlId='sessionToken'
+        >
+          <Input
+            type='password'
+            controlId='sessionToken'
+            value={session}
+            autocomplete={false}
+            onChange={(v) => setSessionToken(v)}
           />
         </FormField>
 

@@ -22,6 +22,8 @@ export const periodIntervalOptions = [
   { label: '24 Hours', value: '1d' },
   { label: '1 Week', value: '7d' },
   { label: '1 Month', value: '30d' },
+  { label: '3 Months', value: '90d' },
+  { label: '6 Months', value: '180d' },
 ]
 
 export const groupIntervalOptions = [
