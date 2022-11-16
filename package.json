@@ -42,7 +42,6 @@
     "glob-parent": ">=5.1.2"
   },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",

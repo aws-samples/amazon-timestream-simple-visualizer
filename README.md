@@ -13,6 +13,7 @@ This small application allows you to connect to **Amazon Timestream** and visual
 You're required to have the following installed in your machine to be able to run the application:
 
 - git
+- yarn (npm i -g yarn)
 - Nodejs (v14.19.0 and above)
 - AWS Account with Timestream readonly access and programmatic access (here a guide on [how to setup the account](docs/account-setup.md))
 
@@ -23,8 +24,8 @@ You can run the application in your machine or deploy the build files in a hosti
 ```sh
 git clone https://github.com/aws-samples/amazon-timestream-simple-visualizer.git
 cd amazon-timestream-simple-visualizer
-npm install # install dependencies
-npm run start # run the application in debug
+yarn install # install dependencies
+yarn start # run the application in debug
 ```
 
 If the above commands are successful you'd be able to run the web application from the browser: http://localhost:3000
@@ -32,7 +33,7 @@ If the above commands are successful you'd be able to run the web application fr
 You could also serve the build version with the following:
 
 ```sh
-npm run build
+yarn build
 npx serve -s build
 ```
 
