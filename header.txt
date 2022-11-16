@@ -13,22 +13,3 @@
  *  See the License for the specific language governing permissions and                                               *
  *  limitations under the License.                                                                                    *
  ******************************************************************************************************************** */
-
-// eslint-disable-next-line no-undef
-module.exports = function override(config) {
-  // eslint-disable-next-line no-param-reassign
-  config.resolve.fallback = {
-    fs: false,
-    tls: false,
-    net: false,
-    path: false,
-    zlib: false,
-    http: false,
-    https: false,
-    stream: false,
-    crypto: false,
-    util: false,
-  }
-
-  return config
-}

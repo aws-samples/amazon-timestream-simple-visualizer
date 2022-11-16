@@ -11,9 +11,10 @@
     "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "header"],
   "rules": {
-    "prettier/prettier": ["error"],   
+    "prettier/prettier": ["error"],
+    "header/header": ["error", "./header.txt"],
     "import/no-extraneous-dependencies": [
       "warn",
       {
