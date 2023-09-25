@@ -1,5 +1,5 @@
 {
-  "name": "amazon-timestream-simple-visualizer",
+  "name": "@aws-samples/amazon-timestream-simple-visualizer",
   "version": "0.1.0",
   "license": "Apache-2.0",
   "dependencies": {
